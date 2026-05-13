@@ -9,15 +9,8 @@
 
 <div class="global-header">
     <div class="header-left">
-        <button id="home-btn" class="header-btn" title="Home">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            Home
-        </button>
-    </div>
-    
-    <div class="header-center">
         <!-- Battleship Side-Profile Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="24" viewBox="0 0 100 24" fill="none" stroke="#00cc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(0, 204, 0, 0.6));">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="24" viewBox="0 0 100 24" fill="none" stroke="#00cc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(0, 204, 0, 0.6)); margin-right: 20px;">
             <path d="M5 18h90l-10-5H15l-10 5z" />
             <path d="M30 13v-4h40v4" />
             <path d="M40 9V5h8v4" />
@@ -30,6 +23,10 @@
             <path d="M50 13V9" />
             <path d="M55 13V9" />
         </svg>
+        <button id="home-btn" class="header-btn" title="Home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Home
+        </button>
     </div>
     <div class="header-right">
         <button id="leaderboard-btn" class="header-btn" title="Leaderboard">
@@ -79,13 +76,10 @@
         align-items: center;
     }
 
-    .header-center {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+    .header-left {
         display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 10px;
     }
 
     .header-btn {
