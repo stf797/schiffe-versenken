@@ -46,6 +46,14 @@
                 </select>
             </div>
 
+            <div class="settings-group">
+                <label>Tactical Power-ups</label>
+                <select id="setting-powerups" class="settings-select">
+                    <option value="enabled" selected>Enabled</option>
+                    <option value="disabled">Disabled</option>
+                </select>
+            </div>
+
             <div style="text-align: center; margin-top: 30px;">
                 <button id="settings-save-btn" class="primary-btn">Save & Close</button>
             </div>

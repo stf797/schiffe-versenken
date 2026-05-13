@@ -64,6 +64,7 @@ export function initBattleship() {
 
     let GRID_SIZE = 10;
     let aiDifficulty = 'medium'; // 'easy', 'medium', 'hard'
+    let usePowerUps = true;
 
     const SHIP_TYPES = [
         { name: 'Carrier', size: 5 },
@@ -242,6 +243,7 @@ export function initBattleship() {
         settingsSaveBtn: document.getElementById('settings-save-btn'),
         settingAiDifficulty: document.getElementById('setting-ai-difficulty'),
         settingGridSize: document.getElementById('setting-grid-size'),
+        settingPowerUps: document.getElementById('setting-powerups'),
 
         logoBtn: document.getElementById('header-logo-btn'),
         homeBtn: document.getElementById('home-btn'),
@@ -515,7 +517,7 @@ export function initBattleship() {
         gameState = 'playing';
         activePowerUp = null;
         ui.setupControls.classList.remove('active');
-        ui.powerupControls.style.display = 'flex';
+        ui.powerupControls.style.display = usePowerUps ? 'flex' : 'none';
         ui.rightOverlay.classList.remove('active');
         ui.rightGrid.classList.remove('disabled');
 
@@ -529,6 +531,7 @@ export function initBattleship() {
 
     function handleRightCellClick(e) {
         if (gameState !== 'playing') return;
+        if (activePowerUp && !usePowerUps) activePowerUp = null; // Safety check
         const r = parseInt(e.target.dataset.r);
         const c = parseInt(e.target.dataset.c);
 
@@ -675,7 +678,7 @@ export function initBattleship() {
         }
 
         // --- TORPEDO USAGE ---
-        if (cpuPowerUps.torpedo > 0 && aiPotentialTargets.length > 0) {
+        if (usePowerUps && cpuPowerUps.torpedo > 0 && aiPotentialTargets.length > 0) {
             // Easy rarely uses torpedo
             if (aiDifficulty !== 'easy' || Math.random() < 0.3) {
                 let validTargetFound = false;
@@ -703,7 +706,7 @@ export function initBattleship() {
         }
 
         // --- SONAR USAGE ---
-        if (!usedPowerUp && cpuPowerUps.sonar > 0 && aiPotentialTargets.length === 0) {
+        if (usePowerUps && !usedPowerUp && cpuPowerUps.sonar > 0 && aiPotentialTargets.length === 0) {
             let sonarChance = aiDifficulty === 'easy' ? 0.05 : 0.3; // 5% Easy, 30% Med/Hard
             if (Math.random() < sonarChance) {
                 const target = getValidRandomTarget();
@@ -841,6 +844,7 @@ export function initBattleship() {
     ui.settingsSaveBtn.addEventListener('click', () => {
         aiDifficulty = ui.settingAiDifficulty.value;
         GRID_SIZE = parseInt(ui.settingGridSize.value);
+        usePowerUps = ui.settingPowerUps.value === 'enabled';
         ui.settingsScreen.classList.remove('active');
     });
 
