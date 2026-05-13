@@ -10,19 +10,21 @@
 <div class="global-header">
     <div class="header-left">
         <!-- Battleship Side-Profile Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="24" viewBox="0 0 100 24" fill="none" stroke="#00cc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(0, 204, 0, 0.6)); margin-right: 20px;">
-            <path d="M5 18h90l-10-5H15l-10 5z" />
-            <path d="M30 13v-4h40v4" />
-            <path d="M40 9V5h8v4" />
-            <path d="M60 9V6h6v3" />
-            <path d="M44 5V1" />
-            <path d="M42 3h4" />
-            <path d="M63 6V2" />
-            <path d="M30 11H15" />
-            <path d="M70 11h15" />
-            <path d="M50 13V9" />
-            <path d="M55 13V9" />
-        </svg>
+        <button id="header-logo-btn" class="header-logo-btn" title="Battleship Home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="24" viewBox="0 0 100 24" fill="none" stroke="#00cc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(0, 204, 0, 0.6));">
+                <path d="M5 18h90l-10-5H15l-10 5z" />
+                <path d="M30 13v-4h40v4" />
+                <path d="M40 9V5h8v4" />
+                <path d="M60 9V6h6v3" />
+                <path d="M44 5V1" />
+                <path d="M42 3h4" />
+                <path d="M63 6V2" />
+                <path d="M30 11H15" />
+                <path d="M70 11h15" />
+                <path d="M50 13V9" />
+                <path d="M55 13V9" />
+            </svg>
+        </button>
         <button id="home-btn" class="header-btn" title="Home">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             Home
@@ -97,10 +99,40 @@
         border-radius: 8px;
     }
 
+    .header-logo-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        transition: transform 0.2s ease;
+        margin-right: 15px;
+    }
+
+    .header-logo-btn:hover {
+        transform: scale(1.05);
+    }
+
     .header-btn:hover {
         color: #00ff00;
         background: rgba(0, 255, 0, 0.1);
         text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+    }
+
+    .header-logo-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: transform 0.2s ease;
+    }
+
+    .header-logo-btn:hover {
+        transform: scale(1.05);
     }
 
     .header-profile-btn {

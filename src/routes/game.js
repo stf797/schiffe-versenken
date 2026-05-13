@@ -243,6 +243,7 @@ export function initBattleship() {
         settingAiDifficulty: document.getElementById('setting-ai-difficulty'),
         settingGridSize: document.getElementById('setting-grid-size'),
 
+        logoBtn: document.getElementById('header-logo-btn'),
         homeBtn: document.getElementById('home-btn'),
         profileBtn: document.getElementById('profile-btn'),
         
@@ -844,6 +845,7 @@ export function initBattleship() {
     });
 
     ui.homeBtn.addEventListener('click', resetToMenu);
+    if (ui.logoBtn) ui.logoBtn.addEventListener('click', resetToMenu);
 
     // --- AUTH LOGIC ---
     
