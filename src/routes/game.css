@@ -262,6 +262,11 @@ header {
     border-color: rgba(0, 0, 0, 0.2);
 }
 
+.grid.fleet-hidden .cell.ship {
+    background: transparent;
+    border-color: var(--cell-border);
+}
+
 .cell.hit::after {
     content: '';
     position: absolute;

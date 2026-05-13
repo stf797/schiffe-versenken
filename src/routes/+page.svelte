@@ -195,6 +195,10 @@
                         </button>
                     </div>
                 </div>
+
+                <div id="game-controls" class="setup-controls" style="display: none; margin-top: 10px;">
+                    <button id="toggle-fleet-btn" class="secondary-btn" style="width: 100%;">Show Fleet</button>
+                </div>
             </div>
 
             <!-- Right Side (Enemy) -->

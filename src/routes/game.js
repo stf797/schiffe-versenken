@@ -227,6 +227,9 @@ export function initBattleship() {
         leftShipsBadge: document.getElementById('player-ships-left'),
         rightShipsBadge: document.getElementById('computer-ships-left'),
         rightOverlay: document.getElementById('computer-overlay'),
+        
+        gameControls: document.getElementById('game-controls'),
+        toggleFleetBtn: document.getElementById('toggle-fleet-btn'),
 
         btnSonar: document.getElementById('btn-sonar'),
         btnTorpedo: document.getElementById('btn-torpedo'),
@@ -280,6 +283,7 @@ export function initBattleship() {
 
     let gameMode = '1p'; // '1p' or '2p'
     let gameState = 'start'; // start, setup, playing, transition, gameover
+    let isFleetVisible = false;
     let activePlayer = 1; // 1 or 2
     let board1, board2;
     let currentShipIndex = 0;
@@ -441,6 +445,14 @@ export function initBattleship() {
 
     function renderLeftBoard() {
         const board = getActiveBoard();
+        
+        // Handle fleet visibility class
+        if (gameState === 'playing' && !isFleetVisible) {
+            ui.leftGrid.classList.add('fleet-hidden');
+        } else {
+            ui.leftGrid.classList.remove('fleet-hidden');
+        }
+
         for (let r = 0; r < GRID_SIZE; r++) {
             for (let c = 0; c < GRID_SIZE; c++) {
                 const val = board.grid[r][c];
@@ -452,6 +464,11 @@ export function initBattleship() {
             }
         }
         ui.leftShipsBadge.innerText = `${SHIP_TYPES.length - board.sunkenShips} Alive`;
+        
+        // Update toggle button text
+        if (ui.toggleFleetBtn) {
+            ui.toggleFleetBtn.innerText = isFleetVisible ? 'Hide Fleet' : 'Show Fleet';
+        }
     }
 
     function renderRightBoard() {
@@ -516,8 +533,10 @@ export function initBattleship() {
     function startGameplay() {
         gameState = 'playing';
         activePowerUp = null;
+        isFleetVisible = false; // Hidden by default when match starts
         ui.setupControls.classList.remove('active');
         ui.powerupControls.style.display = usePowerUps ? 'flex' : 'none';
+        ui.gameControls.style.display = 'block';
         ui.rightOverlay.classList.remove('active');
         ui.rightGrid.classList.remove('disabled');
 
@@ -781,8 +800,10 @@ export function initBattleship() {
 
         setTimeout(() => {
             gameState = 'playing';
+            isFleetVisible = false; // Reset visibility for player turn
             ui.rightGrid.classList.remove('disabled');
             updateUI(); // refresh powerups panel for human
+            renderLeftBoard(); // refresh fleet visibility
         }, 1500);
     }
 
@@ -825,12 +846,18 @@ export function initBattleship() {
         ui.passScreen.classList.remove('active');
         ui.gameOverScreen.classList.remove('active');
         ui.startScreen.classList.add('active');
+        ui.gameControls.style.display = 'none';
         gameState = 'start';
     }
 
     ui.startBtn1p.addEventListener('click', () => initGame('1p'));
     ui.startBtn2p.addEventListener('click', () => initGame('2p'));
     ui.restartBtn.addEventListener('click', resetToMenu);
+
+    ui.toggleFleetBtn.addEventListener('click', () => {
+        isFleetVisible = !isFleetVisible;
+        renderLeftBoard();
+    });
     ui.playAgainBtn.addEventListener('click', resetToMenu);
     ui.rotateBtn.addEventListener('click', () => {
         isHorizontalPlacement = !isHorizontalPlacement;
