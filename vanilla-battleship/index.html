@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <div class="glass-panel">
+                <h1 class="game-title">BATTLESHIP</h1>
+                <p class="subtitle">Tactical Naval Warfare</p>
+                <button id="start-btn" class="primary-btn">Start Game</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <header>
+                <h2 class="game-title-small">BATTLESHIP</h2>
+                <div id="status-display" class="status-panel">
+                    <p id="message-text">Place your ships</p>
+                </div>
+                <button id="restart-btn" class="secondary-btn">Restart</button>
+            </header>
+
+            <div class="game-container">
+                <!-- Player Side -->
+                <div class="side-panel">
+                    <div class="panel-header">
+                        <h3>Player Fleet</h3>
+                        <span id="player-ships-left" class="badge">10 Ships</span>
+                    </div>
+                    <div class="grid-wrapper">
+                        <div id="player-grid" class="grid"></div>
+                    </div>
+                    
+                    <div id="setup-controls" class="setup-controls active">
+                        <p id="current-ship-to-place">Placing: Carrier (5)</p>
+                        <button id="rotate-btn" class="secondary-btn">Rotate: Horizontal</button>
+                    </div>
+                </div>
+
+                <!-- Computer Side -->
+                <div class="side-panel">
+                    <div class="panel-header">
+                        <h3>Enemy Fleet</h3>
+                        <span id="computer-ships-left" class="badge">10 Ships</span>
+                    </div>
+                    <div class="grid-wrapper">
+                        <div id="computer-grid" class="grid disabled"></div>
+                    </div>
+                    <div class="overlay" id="computer-overlay">Awaiting Battle...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="modal">
+            <div class="glass-panel modal-content">
+                <h2 id="game-over-title">Victory!</h2>
+                <p id="game-over-text">You sunk the enemy fleet.</p>
+                <button id="play-again-btn" class="primary-btn">Play Again</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
