@@ -158,6 +158,93 @@
         </div>
     </div>
 
+    <!-- Fleet Config Modal -->
+    <div id="fleet-config-screen" class="modal">
+        <div class="glass-panel modal-content" style="text-align: left; max-width: 500px;">
+            <h2 class="game-title-small" style="margin-bottom: 20px; text-align: center;">Fleet Configuration</h2>
+            
+            <div style="display: flex; justify-content: space-around; margin-bottom: 15px; gap: 10px;">
+                <div class="settings-group" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 0;">
+                    <label style="font-size: 0.9rem;">Carrier (5)</label>
+                    <input type="number" id="config-carrier" class="settings-select" style="width: 60px; text-align: center; margin-top: 5px;" min="0" max="10" value="1">
+                </div>
+                <div class="settings-group" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 0;">
+                    <label style="font-size: 0.9rem;">Battleship (4)</label>
+                    <input type="number" id="config-battleship" class="settings-select" style="width: 60px; text-align: center; margin-top: 5px;" min="0" max="10" value="2">
+                </div>
+                <div class="settings-group" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 0;">
+                    <label style="font-size: 0.9rem;">Cruiser (3)</label>
+                    <input type="number" id="config-cruiser" class="settings-select" style="width: 60px; text-align: center; margin-top: 5px;" min="0" max="10" value="3">
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 40px;">
+                <div class="settings-group" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 0;">
+                    <label style="font-size: 0.9rem;">Submarine (3)</label>
+                    <input type="number" id="config-submarine" class="settings-select" style="width: 60px; text-align: center; margin-top: 5px;" min="0" max="10" value="2">
+                </div>
+                <div class="settings-group" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 0;">
+                    <label style="font-size: 0.9rem;">Destroyer (2)</label>
+                    <input type="number" id="config-destroyer" class="settings-select" style="width: 60px; text-align: center; margin-top: 5px;" min="0" max="10" value="2">
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="fleet-config-save-btn" class="primary-btn">Save & Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Guide Modal -->
+    <div id="guide-screen" class="modal">
+        <div class="glass-panel modal-content" style="text-align: left; max-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <h2 class="game-title-small" style="margin-bottom: 20px; text-align: center;">Game Guide</h2>
+            
+            <h3 style="color: var(--powerup-active); margin-top: 20px;">The Fleet</h3>
+            <ul style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; padding-left: 20px;">
+                <li><strong>Carrier:</strong> Size 5 - The backbone of your fleet.</li>
+                <li><strong>Battleship:</strong> Size 4 - Heavy hitter, takes up considerable space.</li>
+                <li><strong>Cruiser:</strong> Size 3 - A versatile mid-sized vessel.</li>
+                <li><strong>Submarine:</strong> Size 3 - Stealthy and dangerous.</li>
+                <li><strong>Destroyer:</strong> Size 2 - Small, maneuverable, hard to find.</li>
+            </ul>
+
+            <h3 style="color: var(--powerup-active); margin-top: 20px;">Place Your Fleet</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Before the match begins, each player places all ships on their grid. Ships can be placed horizontally or vertically and cannot overlap or go outside the board.</p>
+
+            <h3 style="color: var(--powerup-active); margin-top: 20px;">Hidden Fleets</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Once placement is complete, fleets are automatically hidden. Players can use the Show / Hide Fleet button to temporarily reveal only their own ships.</p>
+
+            <h3 style="color: var(--powerup-active); margin-top: 20px;">Taking Turns</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Players attack by selecting a cell on the enemy grid:<br>
+            <strong>Hit:</strong> A ship occupies the targeted cell.<br>
+            <strong>Miss:</strong> No ship is present.<br>
+            A cell cannot be attacked more than once.</p>
+
+            <h3 style="color: var(--powerup-active); margin-top: 20px;">Sinking Ships</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">A ship is sunk when all of its cells have been hit. The game should clearly announce when a ship has been destroyed.</p>
+
+            <h3 style="color: var(--powerup-active); margin-top: 20px;">Using Power-Ups</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 5px;"><strong>Radar (Sonar):</strong> Reveals whether ships are present in a cross-shaped 5-cell area without causing damage.</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;"><strong>Torpedo:</strong> If it hits any part of a ship, the entire ship is instantly destroyed.</p>
+
+            <h3 style="color: var(--powerup-active); margin-top: 20px;">Winning the Game</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">The first player to destroy the opponent’s entire fleet wins the match.</p>
+
+            <h3 style="color: var(--powerup-active); margin-top: 20px;">Fair Play Rules</h3>
+            <ul style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; padding-left: 20px;">
+                <li>Players may only view their own fleet.</li>
+                <li>Enemy ship locations remain hidden unless revealed through successful hits or power-ups.</li>
+                <li>Ships cannot overlap during placement.</li>
+                <li>Attacks outside the grid are invalid.</li>
+            </ul>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="guide-close-btn" class="secondary-btn">Close Guide</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Game Screen -->
     <div id="game-screen" class="screen">
         <header>

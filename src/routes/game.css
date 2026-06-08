@@ -30,7 +30,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 #app {
@@ -157,6 +157,7 @@ header {
     gap: 40px;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: -30px;
 }
 
 .side-panel {
@@ -253,18 +254,39 @@ header {
 }
 
 .grid:not(.disabled) .cell:hover {
-    background: var(--cell-hover);
+    background-color: var(--cell-hover);
 }
 
-/* Cell States */
 .cell.ship {
     background: var(--ship-color);
     border-color: rgba(0, 0, 0, 0.2);
 }
 
+.cell.ship.carrier {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+.cell.ship.battleship {
+    background: linear-gradient(135deg, #7f1d1d, #ef4444);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+.cell.ship.cruiser {
+    background: linear-gradient(135deg, #b45309, #f59e0b);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+.cell.ship.submarine {
+    background: linear-gradient(135deg, #064e3b, #10b981);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+.cell.ship.destroyer {
+    background: linear-gradient(135deg, #374151, #9ca3af);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+
 .grid.fleet-hidden .cell.ship {
-    background: transparent;
-    border-color: var(--cell-border);
+    background: transparent !important;
+    border-color: var(--cell-border) !important;
+    box-shadow: none !important;
 }
 
 .cell.hit::after {
@@ -357,6 +379,22 @@ header {
 
 .modal-content {
     min-width: 400px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 20, 0, 0.5);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
 }
 
 #game-over-title {

@@ -66,7 +66,7 @@ export function initBattleship() {
     let aiDifficulty = 'medium'; // 'easy', 'medium', 'hard'
     let usePowerUps = true;
 
-    const SHIP_TYPES = [
+    let SHIP_TYPES = [
         { name: 'Carrier', size: 5 },
         { name: 'Battleship', size: 4 },
         { name: 'Battleship', size: 4 },
@@ -116,6 +116,7 @@ export function initBattleship() {
 
         placeShip(ship, row, col, isHorizontal) {
             if (!this.canPlaceShip(ship.size, row, col, isHorizontal)) return false;
+            ship.isHorizontal = isHorizontal;
             for (let i = 0; i < ship.size; i++) {
                 if (isHorizontal) {
                     this.grid[row][col + i] = ship;
@@ -247,6 +248,19 @@ export function initBattleship() {
         settingAiDifficulty: document.getElementById('setting-ai-difficulty'),
         settingGridSize: document.getElementById('setting-grid-size'),
         settingPowerUps: document.getElementById('setting-powerups'),
+
+        fleetConfigScreen: document.getElementById('fleet-config-screen'),
+        fleetConfigBtn: document.getElementById('fleet-config-btn'),
+        fleetConfigSaveBtn: document.getElementById('fleet-config-save-btn'),
+        configCarrier: document.getElementById('config-carrier'),
+        configBattleship: document.getElementById('config-battleship'),
+        configCruiser: document.getElementById('config-cruiser'),
+        configSubmarine: document.getElementById('config-submarine'),
+        configDestroyer: document.getElementById('config-destroyer'),
+
+        guideScreen: document.getElementById('guide-screen'),
+        guideBtn: document.getElementById('guide-btn'),
+        guideCloseBtn: document.getElementById('guide-close-btn'),
 
         logoBtn: document.getElementById('header-logo-btn'),
         homeBtn: document.getElementById('home-btn'),
@@ -458,9 +472,21 @@ export function initBattleship() {
                 const val = board.grid[r][c];
                 const cellElem = ui.leftGrid.querySelector(`.cell[data-r="${r}"][data-c="${c}"]`);
                 cellElem.className = 'cell';
-                if (val === 'hit') cellElem.classList.add('hit');
-                else if (val === 'miss') cellElem.classList.add('miss');
-                else if (val instanceof Ship) cellElem.classList.add('ship');
+                // Reset custom properties in case cell was previously part of a ship
+                cellElem.style.removeProperty('--ship-index');
+                cellElem.style.removeProperty('--ship-size');
+                
+                if (val === 'hit') {
+                    cellElem.classList.add('hit');
+                } else if (val === 'miss') {
+                    cellElem.classList.add('miss');
+                } else if (val instanceof Ship) {
+                    cellElem.classList.add('ship', val.name.toLowerCase());
+                    const index = val.cells.findIndex(cell => cell.row === r && cell.col === c);
+                    cellElem.classList.add(val.isHorizontal ? 'horizontal' : 'vertical');
+                    cellElem.style.setProperty('--ship-index', index);
+                    cellElem.style.setProperty('--ship-size', val.size);
+                }
             }
         }
         ui.leftShipsBadge.innerText = `${SHIP_TYPES.length - board.sunkenShips} Alive`;
@@ -840,9 +866,21 @@ export function initBattleship() {
         return false;
     }
 
-    function resetToMenu() {
-        ui.gameScreen.classList.remove('active');
+    function closeAllModals() {
         ui.settingsScreen.classList.remove('active');
+        ui.fleetConfigScreen.classList.remove('active');
+        ui.guideScreen.classList.remove('active');
+        const authScreen = document.getElementById('auth-screen');
+        if (authScreen) authScreen.classList.remove('active');
+        const statsScreen = document.getElementById('stats-screen');
+        if (statsScreen) statsScreen.classList.remove('active');
+        const leaderboardScreen = document.getElementById('leaderboard-screen');
+        if (leaderboardScreen) leaderboardScreen.classList.remove('active');
+    }
+
+    function resetToMenu() {
+        closeAllModals();
+        ui.gameScreen.classList.remove('active');
         ui.passScreen.classList.remove('active');
         ui.gameOverScreen.classList.remove('active');
         ui.startScreen.classList.add('active');
@@ -865,6 +903,7 @@ export function initBattleship() {
     });
 
     ui.settingsBtn.addEventListener('click', () => {
+        closeAllModals();
         ui.settingsScreen.classList.add('active');
     });
 
@@ -872,7 +911,38 @@ export function initBattleship() {
         aiDifficulty = ui.settingAiDifficulty.value;
         GRID_SIZE = parseInt(ui.settingGridSize.value);
         usePowerUps = ui.settingPowerUps.value === 'enabled';
-        ui.settingsScreen.classList.remove('active');
+        closeAllModals();
+    });
+
+    ui.fleetConfigBtn.addEventListener('click', () => {
+        closeAllModals();
+        ui.fleetConfigScreen.classList.add('active');
+    });
+
+    ui.fleetConfigSaveBtn.addEventListener('click', () => {
+        SHIP_TYPES = [];
+        const carrierCount = parseInt(ui.configCarrier.value) || 0;
+        const battleshipCount = parseInt(ui.configBattleship.value) || 0;
+        const cruiserCount = parseInt(ui.configCruiser.value) || 0;
+        const submarineCount = parseInt(ui.configSubmarine.value) || 0;
+        const destroyerCount = parseInt(ui.configDestroyer.value) || 0;
+
+        for (let i = 0; i < carrierCount; i++) SHIP_TYPES.push({ name: 'Carrier', size: 5 });
+        for (let i = 0; i < battleshipCount; i++) SHIP_TYPES.push({ name: 'Battleship', size: 4 });
+        for (let i = 0; i < cruiserCount; i++) SHIP_TYPES.push({ name: 'Cruiser', size: 3 });
+        for (let i = 0; i < submarineCount; i++) SHIP_TYPES.push({ name: 'Submarine', size: 3 });
+        for (let i = 0; i < destroyerCount; i++) SHIP_TYPES.push({ name: 'Destroyer', size: 2 });
+        
+        closeAllModals();
+    });
+
+    ui.guideBtn.addEventListener('click', () => {
+        closeAllModals();
+        ui.guideScreen.classList.add('active');
+    });
+
+    ui.guideCloseBtn.addEventListener('click', () => {
+        closeAllModals();
     });
 
     ui.homeBtn.addEventListener('click', resetToMenu);
@@ -918,6 +988,7 @@ export function initBattleship() {
             alert('Logged out successfully.');
         } else {
             // Open Auth Modal
+            closeAllModals();
             ui.authScreen.classList.add('active');
             authMode = 'login';
             ui.authTitle.innerText = 'Login';
@@ -983,6 +1054,7 @@ export function initBattleship() {
     // --- STATS LOGIC ---
     
     ui.statsBtn.addEventListener('click', async () => {
+        closeAllModals();
         ui.statsScreen.classList.add('active');
         
         if (!currentUser) {
@@ -1064,6 +1136,7 @@ export function initBattleship() {
     }
 
     ui.leaderboardBtn.addEventListener('click', () => {
+        closeAllModals();
         ui.leaderboardScreen.classList.add('active');
         fetchLeaderboard();
     });
